@@ -3,10 +3,10 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_hbb/common.dart';
-import 'package:flutter_hbb/models/input_model.dart';
-import 'package:flutter_hbb/models/model.dart';
-import 'package:flutter_hbb/utils/image.dart';
+import 'package:gw_remote/common.dart';
+import 'package:gw_remote/models/input_model.dart';
+import 'package:gw_remote/models/model.dart';
+import 'package:gw_remote/utils/image.dart';
 import 'package:provider/provider.dart';
 
 const int _kDotCount = 60;

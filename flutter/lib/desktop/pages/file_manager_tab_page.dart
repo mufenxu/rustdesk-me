@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hbb/common.dart';
-import 'package:flutter_hbb/common/widgets/dialog.dart';
-import 'package:flutter_hbb/consts.dart';
-import 'package:flutter_hbb/models/state_model.dart';
-import 'package:flutter_hbb/desktop/pages/file_manager_page.dart';
-import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
-import 'package:flutter_hbb/utils/multi_window_manager.dart';
+import 'package:gw_remote/common.dart';
+import 'package:gw_remote/common/widgets/dialog.dart';
+import 'package:gw_remote/consts.dart';
+import 'package:gw_remote/models/state_model.dart';
+import 'package:gw_remote/desktop/pages/file_manager_page.dart';
+import 'package:gw_remote/desktop/widgets/tabbar_widget.dart';
+import 'package:gw_remote/utils/multi_window_manager.dart';
 import 'package:get/get.dart';
 
 import '../../models/platform_model.dart';

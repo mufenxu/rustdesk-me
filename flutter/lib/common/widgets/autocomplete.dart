@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hbb/common/formatter/id_formatter.dart';
+import 'package:gw_remote/common/formatter/id_formatter.dart';
 import '../../../models/platform_model.dart';
-import 'package:flutter_hbb/models/peer_model.dart';
-import 'package:flutter_hbb/common.dart';
-import 'package:flutter_hbb/common/widgets/peer_card.dart';
+import 'package:gw_remote/models/peer_model.dart';
+import 'package:gw_remote/common.dart';
+import 'package:gw_remote/common/widgets/peer_card.dart';
 
 class AllPeersLoader {
   List<Peer> peers = [];
