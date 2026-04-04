@@ -4,7 +4,7 @@ use crate::keyboard::input_source::{change_input_source, get_cur_session_input_s
 use crate::platform::linux::is_x11;
 use crate::{
     client::file_trait::FileManager,
-    common::{make_fd_to_json, make_vec_fd_to_json},
+    common::{get_app_display_name, make_fd_to_json, make_vec_fd_to_json},
     flutter::{
         self, session_add, session_add_existed, session_start_, sessions, try_sync_peer_option,
     },
@@ -1033,11 +1033,11 @@ pub fn main_get_socks() -> Vec<String> {
 }
 
 pub fn main_get_app_name() -> String {
-    get_app_display_name()
+    crate::common::get_app_display_name()
 }
 
 pub fn main_get_app_name_sync() -> SyncReturn<String> {
-    SyncReturn(get_app_display_name())
+    SyncReturn(crate::common::get_app_display_name())
 }
 
 pub fn main_uri_prefix_sync() -> SyncReturn<String> {
