@@ -1,4 +1,4 @@
-package com.carriez.flutter_hbb
+package com.greatwall.remote
 
 import android.app.Application
 import android.util.Log
