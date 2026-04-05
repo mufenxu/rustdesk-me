@@ -26,6 +26,7 @@
         android:name=".MainApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="长城远控"
+        android:description="@string/app_description"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true">

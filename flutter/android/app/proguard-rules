@@ -1,7 +1,56 @@
-# Keep class members from protobuf generated code.
+# ==========================================
+# ProGuard / R8 规则 - 长城远控
+# ==========================================
+
+# ---------- Protobuf ----------
 -keepclassmembers class * extends com.google.protobuf.GeneratedMessageLite {
   <fields>;
 }
 
-# Keep rustls-platform-verifier classes for JNI
+# ---------- rustls-platform-verifier (JNI) ----------
 -keep, includedescriptorclasses class org.rustls.platformverifier.** { *; }
+
+# ---------- FFI 层 (JNI native 方法，不可混淆) ----------
+-keep class ffi.FFI { *; }
+
+# ---------- App 核心组件 (Android 系统通过类名反射实例化) ----------
+# 保留所有在 AndroidManifest.xml 中声明的组件类名
+-keep class com.greatwall.remote.MainActivity { *; }
+-keep class com.greatwall.remote.MainApplication { *; }
+-keep class com.greatwall.remote.MainService { *; }
+-keep class com.greatwall.remote.InputService { *; }
+-keep class com.greatwall.remote.FloatingWindowService { *; }
+-keep class com.greatwall.remote.BootReceiver { *; }
+-keep class com.greatwall.remote.PermissionRequestTransparentActivity { *; }
+
+# ---------- 被 JNI/FFI 回调的类 ----------
+-keep class com.greatwall.remote.RdClipboardManager { *; }
+
+# ---------- Flutter 引擎 ----------
+-keep class io.flutter.** { *; }
+-keep class io.flutter.plugins.** { *; }
+
+# ---------- AndroidX ----------
+-keep class androidx.** { *; }
+-dontwarn androidx.**
+
+# ---------- XXPermissions 权限库 ----------
+-keep class com.hjq.permissions.** { *; }
+
+# ---------- AndroidSVG ----------
+-keep class com.caverock.androidsvg.** { *; }
+
+# ---------- 通用规则 ----------
+# 保留注解
+-keepattributes *Annotation*
+# 保留签名 (泛型)
+-keepattributes Signature
+# 保留异常类型
+-keepattributes Exceptions
+# 保留行号信息 (方便 crash 排查)
+-keepattributes SourceFile,LineNumberTable
+
+# 不警告缺失的引用
+-dontwarn kotlin.**
+-dontwarn kotlinx.**
+-dontwarn com.google.protobuf.**
