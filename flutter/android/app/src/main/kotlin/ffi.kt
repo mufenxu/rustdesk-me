@@ -9,7 +9,7 @@ import com.greatwall.remote.RdClipboardManager
 
 object FFI {
     init {
-        System.loadLibrary("rustdesk")
+        System.loadLibrary("gwremote")
     }
 
     external fun init(ctx: Context)
