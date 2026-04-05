@@ -407,8 +407,6 @@ def build_flutter_dmg(version, features):
         system2(
             f'MACOSX_DEPLOYMENT_TARGET=10.14 cargo build --features {features} --release')
     # copy dylib
-    system2(
-        "cp target/release/liblibgwremote.dylib target/release/libgwremote.dylib")
     os.chdir('flutter')
     system2('flutter build macos --release')
     system2('cp -rf ../target/release/service ./build/macos/Build/Products/Release/GreatWallRemote.app/Contents/MacOS/')

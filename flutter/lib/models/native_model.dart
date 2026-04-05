@@ -128,7 +128,7 @@ class PlatformFFI {
                 // Multiple dylib instances will cause some global instances to be invalid.
                 // eg. `lazy_static` objects in rust side, will be created more than once, which is not expected.
                 //
-                // isMacOS? DynamicLibrary.open("liblibrustdesk.dylib") :
+                // isMacOS? DynamicLibrary.open("libgwremote.dylib") :
                 DynamicLibrary.process();
     debugPrint('initializing FFI $_appType');
     try {
