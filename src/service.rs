@@ -1,4 +1,4 @@
-use libgwremote::*;
+use gwremote::*;
 
 #[cfg(not(target_os = "macos"))]
 fn main() {}

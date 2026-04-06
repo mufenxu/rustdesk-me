@@ -465,7 +465,7 @@ build)
 
 	mkdir -p "flutter/android/app/src/main/jniLibs/${ANDROID_ABI}"
 
-	cp "target/${RUST_TARGET}/release/liblibgwremote.so" \
+	cp "target/${RUST_TARGET}/release/libgwremote.so" \
 		"flutter/android/app/src/main/jniLibs/${ANDROID_ABI}/libgwremote.so"
 
 	cp "${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/${NDK_TARGET}/libc++_shared.so" \
