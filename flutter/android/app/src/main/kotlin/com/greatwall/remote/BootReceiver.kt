@@ -17,14 +17,14 @@ class BootReceiver : BroadcastReceiver() {
     private val logTag = "tagBootReceiver"
 
     override fun onReceive(context: Context, intent: Intent) {
-        val action = intent.action
-        Log.d(logTag, "onReceive $action")
+        val intentAction = intent.action
+        Log.d(logTag, "onReceive $intentAction")
 
         val isBootAction =
-            action == Intent.ACTION_BOOT_COMPLETED || action == "android.intent.action.QUICKBOOT_POWERON"
-        val isDebugBootAction = BuildConfig.DEBUG && action == DEBUG_BOOT_COMPLETED
+            intentAction == Intent.ACTION_BOOT_COMPLETED || intentAction == "android.intent.action.QUICKBOOT_POWERON"
+        val isDebugBootAction = BuildConfig.DEBUG && intentAction == DEBUG_BOOT_COMPLETED
         if (!isBootAction && !isDebugBootAction) {
-            Log.d(logTag, "ignore unexpected action: $action")
+            Log.d(logTag, "ignore unexpected action: $intentAction")
             return
         }
 
@@ -41,7 +41,7 @@ class BootReceiver : BroadcastReceiver() {
         }
 
         val serviceIntent = Intent(context, MainService::class.java).apply {
-            action = ACT_INIT_MEDIA_PROJECTION_AND_SERVICE
+            this.action = ACT_INIT_MEDIA_PROJECTION_AND_SERVICE
             putExtra(EXT_INIT_FROM_BOOT, true)
         }
 
