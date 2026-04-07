@@ -17,31 +17,39 @@ class BootReceiver : BroadcastReceiver() {
     private val logTag = "tagBootReceiver"
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d(logTag, "onReceive ${intent.action}")
+        val action = intent.action
+        Log.d(logTag, "onReceive $action")
 
-        if (Intent.ACTION_BOOT_COMPLETED == intent.action || DEBUG_BOOT_COMPLETED == intent.action) {
-            // check SharedPreferences config
-            val prefs = context.getSharedPreferences(KEY_SHARED_PREFERENCES, FlutterActivity.MODE_PRIVATE)
-            if (!prefs.getBoolean(KEY_START_ON_BOOT_OPT, false)) {
-                Log.d(logTag, "KEY_START_ON_BOOT_OPT is false")
-                return
-            }
-            // check pre-permission
-            if (!XXPermissions.isGranted(context, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, SYSTEM_ALERT_WINDOW)){
-                Log.d(logTag, "REQUEST_IGNORE_BATTERY_OPTIMIZATIONS or SYSTEM_ALERT_WINDOW is not granted")
-                return
-            }
+        val isBootAction =
+            action == Intent.ACTION_BOOT_COMPLETED || action == "android.intent.action.QUICKBOOT_POWERON"
+        val isDebugBootAction = BuildConfig.DEBUG && action == DEBUG_BOOT_COMPLETED
+        if (!isBootAction && !isDebugBootAction) {
+            Log.d(logTag, "ignore unexpected action: $action")
+            return
+        }
 
-            val it = Intent(context, MainService::class.java).apply {
-                action = ACT_INIT_MEDIA_PROJECTION_AND_SERVICE
-                putExtra(EXT_INIT_FROM_BOOT, true)
-            }
-            Toast.makeText(context, "长城远控已启动", Toast.LENGTH_LONG).show()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(it)
-            } else {
-                context.startService(it)
-            }
+        // Check SharedPreferences config.
+        val prefs = context.getSharedPreferences(KEY_SHARED_PREFERENCES, FlutterActivity.MODE_PRIVATE)
+        if (!prefs.getBoolean(KEY_START_ON_BOOT_OPT, false)) {
+            Log.d(logTag, "KEY_START_ON_BOOT_OPT is false")
+            return
+        }
+        // Check permissions required for service auto-start path.
+        if (!XXPermissions.isGranted(context, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, SYSTEM_ALERT_WINDOW)) {
+            Log.d(logTag, "REQUEST_IGNORE_BATTERY_OPTIMIZATIONS or SYSTEM_ALERT_WINDOW is not granted")
+            return
+        }
+
+        val serviceIntent = Intent(context, MainService::class.java).apply {
+            action = ACT_INIT_MEDIA_PROJECTION_AND_SERVICE
+            putExtra(EXT_INIT_FROM_BOOT, true)
+        }
+
+        Toast.makeText(context, "${context.getString(R.string.app_name)} started", Toast.LENGTH_LONG).show()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(serviceIntent)
+        } else {
+            context.startService(serviceIntent)
         }
     }
 }
