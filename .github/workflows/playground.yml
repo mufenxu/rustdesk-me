@@ -397,7 +397,7 @@ jobs:
 
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
-        if: env.ANDROID_SIGNING_KEY != null
+        if: env.ANDROID_SIGNING_KEY != ''
         id: sign-rustdesk
         with:
           releaseDirectory: ./signed-apk
@@ -408,6 +408,12 @@ jobs:
         env:
           # override default build-tools version (29.0.3) -- optional
           BUILD_TOOLS_VERSION: "30.0.2"
+
+      - name: Verify signed APK
+        if: env.ANDROID_SIGNING_KEY != ''
+        shell: bash
+        run: |
+          /usr/local/lib/android/sdk/build-tools/30.0.2/apksigner verify --verbose --print-certs "${{steps.sign-rustdesk.outputs.signedReleaseFile}}"
 
       - name: Publish signed apk package
         uses: softprops/action-gh-release@v1
